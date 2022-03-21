@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AccountService } from './services/account.service';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'client';
+  title = 'The Dating app';
+  users: any;
+
+  constructor(private accountService: AccountService) {}
+
+  ngOnInit() {
+    this.setCurrentUser();
+  }
+
+  setCurrentUser() {
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    this.accountService.setCurrentUser(user);
+  }
 }
